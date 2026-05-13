@@ -1,10 +1,8 @@
-# ===== STAGE 1: Dependencies =====
 FROM node:18-alpine AS deps
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --only=production
 
-# ===== STAGE 2: Production =====
 FROM node:18-alpine AS production
 
 RUN addgroup -g 1001 -S appgroup && \
@@ -20,6 +18,6 @@ RUN chown -R appuser:appgroup /app
 
 USER appuser
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["node", "src/index.js"]
